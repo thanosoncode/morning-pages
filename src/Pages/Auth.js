@@ -1,17 +1,21 @@
 import { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
+  createUser,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../firebase";
-import { useGlobalContext } from "./Context";
-import { StyledForm } from "./styles/Auth.styled";
+import { auth, db } from "../firebase";
+import { addDoc } from "firebase/firestore";
+import { useGlobalContext } from "../context";
+import { StyledForm } from "../Components/styles/Auth.styled";
 import { useNavigate } from "react-router-dom";
+import { getAnalytics, setUserProperties } from "firebase/analytics";
 
 const Auth = () => {
   let navigate = useNavigate();
-
-  const { user, setUser } = useGlobalContext();
+  const words = 2999;
+  const { user, setUser, isAuth, setIsAuth, usersCollectionRef } =
+    useGlobalContext();
 
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
@@ -21,7 +25,9 @@ const Auth = () => {
   const [errorLogin, setErrorLogin] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [isMember, setIsMember] = useState(false);
+  const [hasAccount, setHasAccount] = useState(false);
+
+  const analytics = getAnalytics();
 
   const logIn = async (e) => {
     e.preventDefault();
@@ -41,7 +47,7 @@ const Auth = () => {
       if (user) {
         navigate("/dashboard");
       }
-      console.log("signed in", user.email);
+      console.log("signed in", user?.email);
     } catch (error) {
       setErrorLogin(error.message);
     }
@@ -61,10 +67,11 @@ const Auth = () => {
         signUpEmail,
         signUpPassword
       );
+
       if (user) {
         navigate("/dashboard");
       }
-      console.log("signed Up", user.email);
+      console.log("signed Up", user?.email);
     } catch (error) {
       setErrorSignUp(error.message);
     }
@@ -112,35 +119,7 @@ const Auth = () => {
 
   return (
     <>
-      {isMember ? (
-        <StyledForm onSubmit={signUp}>
-          <h1>Sign Up</h1>
-          <p>{errorSignUp}</p>
-          <div>
-            <label htmlFor="email-sign-up">Email Address</label>
-            <input
-              type="email"
-              id="email-sign-up"
-              onChange={(e) => setSignUpEmail(e.target.value)}
-            />
-            <p>{emailError}</p>
-          </div>
-          <div>
-            <label htmlFor="password-sign-up">Password</label>
-            <input
-              type="password"
-              id="password-sign-up"
-              onChange={(e) => setSignUpPassword(e.target.value)}
-            />
-            <p>{passwordError}</p>
-          </div>
-          <button type="submit">Sign Up</button>
-          <footer>
-            <span>Already a member?</span>
-            <span onClick={() => setIsMember(false)}>Log in</span>
-          </footer>
-        </StyledForm>
-      ) : (
+      {hasAccount ? (
         <StyledForm onSubmit={logIn}>
           <h1>Welcome Back!</h1>
           <p>{errorLogin}</p>
@@ -165,7 +144,35 @@ const Auth = () => {
           <button type="submit">Log in</button>
           <footer>
             <span>Don't have an account?</span>
-            <span onClick={() => setIsMember(true)}>Sign Up!</span>
+            <span onClick={() => setHasAccount(false)}>Sign Up!</span>
+          </footer>
+        </StyledForm>
+      ) : (
+        <StyledForm onSubmit={signUp}>
+          <h1>Sign Up</h1>
+          <p>{errorSignUp}</p>
+          <div>
+            <label htmlFor="email-sign-up">Email Address</label>
+            <input
+              type="email"
+              id="email-sign-up"
+              onChange={(e) => setSignUpEmail(e.target.value)}
+            />
+            <p>{emailError}</p>
+          </div>
+          <div>
+            <label htmlFor="password-sign-up">Password</label>
+            <input
+              type="password"
+              id="password-sign-up"
+              onChange={(e) => setSignUpPassword(e.target.value)}
+            />
+            <p>{passwordError}</p>
+          </div>
+          <button type="submit">Sign Up</button>
+          <footer>
+            <span>Already a member?</span>
+            <span onClick={() => setHasAccount(true)}>Log in</span>
           </footer>
         </StyledForm>
       )}

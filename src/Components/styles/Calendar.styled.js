@@ -62,7 +62,7 @@ export const Grid = styled.div`
   grid-template-rows: repeat(5, 1fr);
   grid-template-columns: repeat(7, 1fr);
   width: 100%;
-  gap: 10px;
+  grid-gap: 10px;
   place-items: center;
 `;
 
@@ -90,13 +90,16 @@ export const Day = styled.div`
   }
 `;
 
-export const Footer = styled.footer`
+export const Footer = styled.div`
+  width: 100%;
+  div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   border: 1px solid ${({ theme }) => theme.colorVeryLight};
   padding: 20px;
   margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   button {
     border-radius: 999px;

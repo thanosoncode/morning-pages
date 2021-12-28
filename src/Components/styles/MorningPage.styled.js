@@ -17,4 +17,7 @@ export const TextArea = styled.textarea`
   &:focus {
     outline: none;
   }
+  &::placeholder {
+    text-align: center;
+  }
 `;

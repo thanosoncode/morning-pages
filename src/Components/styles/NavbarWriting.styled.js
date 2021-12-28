@@ -1,12 +1,16 @@
 import styled from "styled-components";
 
-export const StyledHeader = styled.header`
+export const Container = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.colorVeryLight};
+`;
+
+export const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 900px;
+  max-width: 1300px;
   margin: 0 auto;
-  padding: 15px 30px;
+  padding: 10px 40px;
   position: relative;
 
   h5 {

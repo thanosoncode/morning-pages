@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export const Grid = styled.div`
   display: grid;
-  padding: 60px;
+  padding: 40px 60px 60px 60px;
   place-items: center;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1px 1fr;
   /* gap: 50px; */
 
   @media (max-width: 850px) {
@@ -15,4 +15,10 @@ export const Grid = styled.div`
     gap: 40px;
     padding: 60px 5px;
   }
+`;
+
+export const Line = styled.div`
+  background: ${({ theme }) => theme.colorVeryLight};
+  width: 1px;
+  height: 100%;
 `;

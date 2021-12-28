@@ -4,8 +4,7 @@ import today from "../images/plus.jpg";
 import past from "../images/plusbnw.jpg";
 import future from "../images/magicball.png";
 import styled from "styled-components";
-import { AiOutlinePlus } from "react-icons/ai";
-import { useGlobalContext } from "./Context";
+import { useGlobalContext } from "../context";
 
 const messages = [
   "Write Morning Pages the next day. Try not to break the chain",

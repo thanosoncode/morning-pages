@@ -1,32 +1,37 @@
 import { useEffect } from "react";
-import { deleteDoc } from "firebase/firestore";
 import { StyledHistory } from "./styles/History.styled";
 import { useNavigate } from "react-router-dom";
 import HistoryPage from "./HistoryPage";
-
-import { useGlobalContext } from "./Context";
+import { useGlobalContext } from "../context";
 import HistoryButton from "./HistoryButton";
 import { months } from "../data/daysAndMonths";
+import Loading from "./Loading";
 
 const History = () => {
   let navigate = useNavigate();
 
   const {
     showHistoryPage,
-    setShowHistoryPage,
     historyPageContent,
     selectedDay,
-    currentDay,
     month,
     year,
+    loading,
+    setNewPageContent,
+    setWritingTimeStarted,
   } = useGlobalContext();
 
   const handleNewPageClick = () => {
     navigate(`/pages/${month + 1}-${selectedDay}-${year}`);
+    setNewPageContent("");
+    setWritingTimeStarted(new Date().getTime());
   };
 
   useEffect(() => {}, [historyPageContent]);
 
+  if (loading) {
+    return <Loading />;
+  }
   return (
     <StyledHistory>
       <h5>

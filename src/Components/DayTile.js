@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { useGlobalContext } from "./Context";
+import { useGlobalContext } from "../context";
 
 const DayTile = ({ value, month, year }) => {
   const { currentDay, selectedDay, activeDays, handleSelectedDayClick } =
@@ -45,7 +45,7 @@ const StyledDayTile = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  color: ${({ value, currentDay, activeDays, month, year }) => {
+  color: ${({ value, currentDay, month, year }) => {
     if (
       value === currentDay &&
       month === new Date().getMonth() &&

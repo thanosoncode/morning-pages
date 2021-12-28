@@ -1,27 +1,32 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Home from "./Components/Home";
-import Header from "./Components/Header";
-import Dashboard from "./Components/Dashboard";
-import HeaderPage from "./Components/HeaderPage";
-import MorningPage from "./Components/MorningPage";
-import Profile from "./Components/Profile";
-import Auth from "./Components/Auth";
-import { useGlobalContext } from "./Components/Context";
+import Home from "./Pages/Home";
+import Dashboard from "./Pages/Dashboard";
+import MorningPage from "./Pages/MorningPage";
+import Profile from "./Pages/Profile";
+import Auth from "./Pages/Auth";
+import Notification from "./Components/Notification";
+import { AppContainer } from "./Components/styles/App.styled";
+import { useGlobalContext } from "./context";
 
 const App = () => {
-  const { showProfile } = useGlobalContext();
+  const { isNotificationOpen } = useGlobalContext();
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/auth" element={<Auth />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/pages/:id" element={<MorningPage />} />
+    <>
+      <AppContainer>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/pages/:id" element={<MorningPage />} />
 
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </Router>
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </Router>
+        {isNotificationOpen && <Notification />}
+      </AppContainer>
+    </>
   );
 };
 

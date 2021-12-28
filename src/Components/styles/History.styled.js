@@ -5,8 +5,9 @@ export const StyledHistory = styled.section`
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
+  width: 80%;
   height: 100%;
+
   @media (max-width: 650px) {
     padding-bottom: 100px;
   }
@@ -15,6 +16,6 @@ export const StyledHistory = styled.section`
   h5 {
     font-weight: 600;
     font-size: 1rem;
-    margin-bottom: 20px;
+    /* margin-bottom: 20px; */
   }
 `;
