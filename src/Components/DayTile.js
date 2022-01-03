@@ -5,6 +5,11 @@ import { useGlobalContext } from "../context";
 const DayTile = ({ value, month, year }) => {
   const { currentDay, selectedDay, activeDays, handleSelectedDayClick } =
     useGlobalContext();
+  if (value < 10) {
+    value = "0" + value.toString();
+  } else {
+    value = value.toString();
+  }
 
   return (
     <StyledDayTile
@@ -66,7 +71,7 @@ const StyledDayTile = styled.div`
 
   border: 1px solid
     ${({ theme, value, selectedDay }) => {
-      if (value == selectedDay) {
+      if (value === selectedDay) {
         return theme.color;
       }
       return theme.colorVeryLight;
@@ -114,6 +119,7 @@ const Background = styled.div`
         }
       }
     }
+
     return "white";
   }};
 `;

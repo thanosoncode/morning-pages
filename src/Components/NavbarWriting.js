@@ -58,10 +58,17 @@ const NavbarWriting = () => {
         setLoading(true);
 
         try {
-          const time = `${month + 1}-${selectedDay}-${year}`;
+          let selectedMonth = month + 1;
+          if (month < 10) {
+            selectedMonth = "0" + selectedMonth.toString();
+          } else {
+            selectedMonth = selectedMonth.toString();
+          }
+          const time = `${selectedMonth}-${selectedDay}-${year}`;
           setWritingTime(
             Math.floor((new Date().getTime() - writingTimeStarted) / 1000 / 60)
           );
+          console.log("time", time);
           await addDoc(pagesCollectionRef, {
             user: user.email,
             id: nanoid(),

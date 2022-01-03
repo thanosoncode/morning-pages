@@ -10,7 +10,7 @@ import { AppContainer } from "./Components/styles/App.styled";
 import { useGlobalContext } from "./context";
 
 const App = () => {
-  const { isNotificationOpen } = useGlobalContext();
+  // const { isNotificationOpen } = useGlobalContext();
   return (
     <>
       <AppContainer>
@@ -24,7 +24,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </Router>
-        {isNotificationOpen && <Notification />}
+        {/* {isNotificationOpen && <Notification />} */}
       </AppContainer>
     </>
   );

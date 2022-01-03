@@ -19,7 +19,6 @@ export const AppContextProvider = ({ children }) => {
 
   const [user, setUser] = useState({});
   const [isAuth, setIsAuth] = useState(false);
-  const [userInfo, setUserInfo] = useState();
   const [pagesList, setPagesList] = useState([]);
   const [newPage, setNewPage] = useState(false);
   const [wordGoal, setWordGoal] = useState(300);
@@ -28,7 +27,9 @@ export const AppContextProvider = ({ children }) => {
   const [currentDay, setCurrentDay] = useState(
     new Date().toDateString().substr(8, 2)
   );
-  const [selectedDay, setSelectedDay] = useState(new Date().getDate());
+  const [selectedDay, setSelectedDay] = useState(
+    new Date().toDateString().substr(8, 2)
+  );
   const [historyPageContent, setHistoryPageContent] = useState("");
   const [showHistoryPage, setShowHistoryPage] = useState(false);
   const [month, setMonth] = useState(new Date().getMonth());
@@ -70,18 +71,29 @@ export const AppContextProvider = ({ children }) => {
           id: doc.id,
         }));
         const userPages = allPages.filter((doc) => doc.user === user.email);
-        const userPagesMonth = userPages.filter(
-          (doc) =>
-            Number.parseInt(doc.time?.substr(0, 2)) === month + 1 &&
-            Number.parseInt(doc.time?.substr(6, 4)) === year
-        );
+        const userPagesMonth = userPages.filter((doc) => {
+          let targetMonth = month + 1;
 
+          if (targetMonth < 10) {
+            targetMonth = "0" + targetMonth.toString();
+            console.log("targetMonth", targetMonth);
+          } else {
+            targetMonth = targetMonth.toString();
+          }
+          return (
+            doc.time.substr(0, 2) === targetMonth &&
+            Number.parseInt(doc.time?.substr(6, 4)) === year
+          );
+        });
+        console.log("userPages", userPages);
+        console.log("month", userPagesMonth);
         const activeDaysWithScore = userPagesMonth.map((doc) => {
           return {
             day: doc.time.substr(3, 2),
             score: (doc.content.split(" ").length / wordGoal) * 100,
           };
         });
+        console.log("activeDays", activeDaysWithScore);
         setPagesList(userPages);
         setActiveDays(activeDaysWithScore);
         setLoading(false);
@@ -93,7 +105,14 @@ export const AppContextProvider = ({ children }) => {
   };
 
   const getPage = useCallback(() => {
-    const localDayString = `${month + 1}-${selectedDay}-${year}`;
+    let targetMonth = month + 1;
+    if (targetMonth < 10) {
+      targetMonth = "0" + targetMonth.toString();
+      console.log("targetMonth", targetMonth);
+    } else {
+      targetMonth = targetMonth.toString();
+    }
+    const localDayString = `${targetMonth}-${selectedDay}-${year}`;
 
     if (pagesList) {
       const userPageDay = pagesList.filter((item) => {
@@ -133,14 +152,7 @@ export const AppContextProvider = ({ children }) => {
   }, [user, month, year, newPage]);
 
   const handleSelectedDayClick = (day) => {
-    if (day < 10) {
-      day = "0" + day;
-
-      setSelectedDay(day);
-    } else {
-      setSelectedDay(Number.parseInt(day));
-    }
-    console.log(selectedDay, currentDay);
+    setSelectedDay(day);
   };
 
   const logOut = async () => {
@@ -148,6 +160,19 @@ export const AppContextProvider = ({ children }) => {
     setIsAuth(false);
     console.log("log out");
   };
+
+  // useEffect(() => {
+  //   const createDate = () => {
+  //     let monthToString = month + 1;
+  //     if (monthToString < 10) {
+  //       monthToString = "0" + monthToString.toString();
+  //     } else {
+  //       monthToString = monthToString.toString();
+  //     }
+  //     console.log(monthToString, selectedDay, year);
+  //   };
+  //   createDate();
+  // }, [selectedDay, month, year]);
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -197,6 +222,8 @@ export const AppContextProvider = ({ children }) => {
     setWritingTimeStarted,
     writingTime,
     setWritingTime,
+    pagesList,
+    setPagesList,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

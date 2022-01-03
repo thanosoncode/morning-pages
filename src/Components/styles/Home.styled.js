@@ -18,6 +18,9 @@ export const Background = styled.div`
   width: 100%;
   height: 100%;
   z-index: -1;
+  img {
+    width: 100%;
+  }
 `;
 export const Flex = styled.div`
   display: flex;

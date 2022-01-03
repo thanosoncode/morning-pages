@@ -15,26 +15,27 @@ const messages = [
 ];
 
 const HistoryButton = ({ handleNewPageClick }) => {
-  const { selectedDay, currentDay } = useGlobalContext();
+  const { selectedDay, currentDay, month, year } = useGlobalContext();
   const [image, setImage] = useState();
   const [message, setMessage] = useState();
 
   useEffect(() => {
-    if (selectedDay < currentDay) {
+    console.log(new Date(year, month, selectedDay) < new Date());
+    if (new Date(year, month, selectedDay) < new Date()) {
       setImage(past);
       setMessage(messages[1]);
     }
-    if (selectedDay > currentDay + 1) {
-      setImage(future);
-      setMessage(messages[4]);
-    }
-    if (selectedDay === currentDay + 1) {
+
+    if (new Date(year, month, selectedDay) > new Date()) {
       setImage(future);
       setMessage(messages[3]);
     }
-    if (selectedDay === currentDay) {
+
+    if (
+      new Date(year, month, selectedDay).getTime() ===
+      new Date(year, month, currentDay).getTime()
+    ) {
       setImage(today);
-      console.log("clicked");
       setMessage(messages[2]);
     }
   }, [selectedDay, currentDay]);
