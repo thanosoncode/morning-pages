@@ -2,21 +2,22 @@ import styled from "styled-components";
 import bg from "../../images/morning-pages-bg.jpg";
 
 export const Container = styled.div`
-  height:100vh;
-  width:100vw;
-  background-image: url(${bg})
-  background-size:cover;
-  position:relative;
-  z-index:0;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
 `;
 
 export const Background = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: -1;
+  height: 100%;
+  width: 100%;
+  img {
+    width: 100%;
+  }
 `;
 export const Flex = styled.div`
   display: flex;
