@@ -2,7 +2,14 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { auth, db } from "./firebase";
 import { signOut } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs, addDoc, setDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  getDoc,
+  setDoc,
+  doc,
+} from "firebase/firestore";
 
 const AppContext = React.createContext();
 
@@ -12,12 +19,15 @@ export const AppContextProvider = ({ children }) => {
 
   const [user, setUser] = useState({});
   const [isAuth, setIsAuth] = useState(false);
+  const [userInfo, setUserInfo] = useState();
   const [pagesList, setPagesList] = useState([]);
   const [newPage, setNewPage] = useState(false);
-  const [wordGoal, setWordGoal] = useState(20);
+  const [wordGoal, setWordGoal] = useState(300);
   const [activeDays, setActiveDays] = useState([]);
   const [newPageContent, setNewPageContent] = useState("");
-  const [currentDay, setCurrentDay] = useState(new Date().getDate());
+  const [currentDay, setCurrentDay] = useState(
+    new Date().toDateString().substr(8, 2)
+  );
   const [selectedDay, setSelectedDay] = useState(new Date().getDate());
   const [historyPageContent, setHistoryPageContent] = useState("");
   const [showHistoryPage, setShowHistoryPage] = useState(false);
@@ -32,28 +42,23 @@ export const AppContextProvider = ({ children }) => {
   const [writingTime, setWritingTime] = useState(0);
   const [writingTimeStarted, setWritingTimeStarted] = useState(null);
 
-  console.log(auth.currentUser?.email);
   useEffect(() => {
-    const createUserData = async () => {
-      const data = await getDocs(usersCollectionRef);
-      const docs = data.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      const userData = docs.filter((doc) => doc.user === user.email);
+    const createUser = async () => {
+      const data = await getDoc(doc(db, "users", user.email));
+      const userDoc = data.data();
 
+      setWordGoal(userDoc.wordGoal);
       return (
-        userData.length === 0 &&
+        userDoc.length === 0 &&
         (await setDoc(doc(db, "users", user.email), {
-          user: user.email,
-          wordGoal: wordGoal,
+          wordGoal: 300,
         }))
       );
     };
     if (user?.email) {
-      createUserData();
+      createUser();
     }
-  }, [user, usersCollectionRef, wordGoal]);
+  }, [user, usersCollectionRef]);
 
   const getAllPages = async () => {
     setLoading(true);
@@ -108,11 +113,9 @@ export const AppContextProvider = ({ children }) => {
   }, [
     selectedDay,
     month,
-
     setShowHistoryPage,
     setHistoryPageContent,
     year,
-
     setEditingId,
     pagesList,
   ]);
@@ -137,6 +140,7 @@ export const AppContextProvider = ({ children }) => {
     } else {
       setSelectedDay(Number.parseInt(day));
     }
+    console.log(selectedDay, currentDay);
   };
 
   const logOut = async () => {
@@ -187,9 +191,7 @@ export const AppContextProvider = ({ children }) => {
     setIsNotificationOpen,
     newPage,
     setNewPage,
-
     setInsightWords,
-
     insightWords,
     writingTimeStarted,
     setWritingTimeStarted,

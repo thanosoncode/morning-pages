@@ -73,7 +73,6 @@ const NavbarWriting = () => {
 
           setBarPercentage(0);
           setLoading(false);
-          console.log(writingTime);
         } catch (error) {
           console.log(error);
           setLoading(false);

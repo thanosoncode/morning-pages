@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Grid = styled.div`
   display: grid;
   padding: 40px 60px 60px 60px;
-  place-items: center;
+  place-items: start center;
   grid-template-columns: 1fr 1px 1fr;
   /* gap: 50px; */
 

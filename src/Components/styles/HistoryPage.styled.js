@@ -30,6 +30,7 @@ export const SwitchContainer = styled.section`
     text-align: center;
     font-weight: 500;
     font-size: 0.9rem;
+    cursor: pointer;
   }
 `;
 

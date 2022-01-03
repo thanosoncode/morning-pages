@@ -34,6 +34,7 @@ const HistoryButton = ({ handleNewPageClick }) => {
     }
     if (selectedDay === currentDay) {
       setImage(today);
+      console.log("clicked");
       setMessage(messages[2]);
     }
   }, [selectedDay, currentDay]);

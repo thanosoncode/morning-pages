@@ -1,21 +1,14 @@
 import { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
-  createUser,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, db } from "../firebase";
-import { addDoc } from "firebase/firestore";
-import { useGlobalContext } from "../context";
+import { auth } from "../firebase";
 import { StyledForm } from "../Components/styles/Auth.styled";
 import { useNavigate } from "react-router-dom";
-import { getAnalytics, setUserProperties } from "firebase/analytics";
 
 const Auth = () => {
   let navigate = useNavigate();
-  const words = 2999;
-  const { user, setUser, isAuth, setIsAuth, usersCollectionRef } =
-    useGlobalContext();
 
   const [signUpEmail, setSignUpEmail] = useState("");
   const [signUpPassword, setSignUpPassword] = useState("");
@@ -26,8 +19,6 @@ const Auth = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
-
-  const analytics = getAnalytics();
 
   const logIn = async (e) => {
     e.preventDefault();

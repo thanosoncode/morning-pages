@@ -1,5 +1,17 @@
 export const placeHolders = [
-  "Write what you feel and what you see in the simplest way",
+  "Write what you see and what you feel in the simplest way",
   "If in doubt do it! you don't have to show it to anybody",
   "The more you write the bigger your imagination",
+  "Write what you can't say",
+  "Inspiration comes from within",
+  "Just follow the voice in your head",
+  "A word after a word after word is power",
+  "Ready, steady, write",
+  "The deeper you go into questions, the deeper questions get",
+  "Start writing, no matter what",
+  "Clear the decks",
+  "Writing anything is infinitely better than writing nothing",
+  "You never quite know where Morning Pages will take you",
+  "Let the dogs out",
+  "Clear your thoughts and set your focus for the day",
 ];

@@ -8,6 +8,7 @@ export const Container = styled.div`
   background-size:cover;
   position:relative;
   z-index:0;
+  overflow:hidden;
 `;
 
 export const Background = styled.div`

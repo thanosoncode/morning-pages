@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledProfile = styled.div`
+export const Container = styled.div`
   max-width: 540px;
   margin: 20px auto;
 
@@ -10,6 +10,12 @@ export const StyledProfile = styled.div`
     margin-bottom: 40px;
   }
 `;
+
+export const Section = styled.section`
+  border-bottom: 1px solid ${({ theme }) => theme.colorVeryLight};
+  margin-bottom: 20px;
+`;
+
 export const Flex = styled.div`
   display: flex;
   justify-content: space-between;
@@ -22,6 +28,7 @@ export const Flex = styled.div`
 
   p:last-child {
     color: #8d9da1;
+    max-width: 320px;
   }
 `;
 
