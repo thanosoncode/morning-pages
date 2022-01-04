@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   let navigate = useNavigate();
-  const { user } = useGlobalContext();
 
   return (
     <Container>

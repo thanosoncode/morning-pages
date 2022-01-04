@@ -26,7 +26,6 @@ const HistoryPage = ({ content }) => {
     setNewPage,
     setEditing,
     setLoading,
-    newPageContent,
     insightWords,
     writingTime,
   } = useGlobalContext();

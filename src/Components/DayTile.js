@@ -90,7 +90,7 @@ const Background = styled.div`
   width: 100%;
   height: ${({ activeDays, value, currentDay }) => {
     for (let j = 0; j < activeDays.length; j++) {
-      if (value == activeDays[j].day && value !== currentDay) {
+      if (value === activeDays[j].day && value !== currentDay) {
         return `${activeDays[j].score}%`;
       }
     }
@@ -114,7 +114,7 @@ const Background = styled.div`
     }
     if (activeDays) {
       for (let i = 0; i < activeDays.length; i++) {
-        if (value == activeDays[i].day) {
+        if (value === activeDays[i].day) {
           return theme.greenActive;
         }
       }

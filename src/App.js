@@ -5,12 +5,9 @@ import Dashboard from "./Pages/Dashboard";
 import MorningPage from "./Pages/MorningPage";
 import Profile from "./Pages/Profile";
 import Auth from "./Pages/Auth";
-import Notification from "./Components/Notification";
 import { AppContainer } from "./Components/styles/App.styled";
-import { useGlobalContext } from "./context";
 
 const App = () => {
-  // const { isNotificationOpen } = useGlobalContext();
   return (
     <>
       <AppContainer>
@@ -24,7 +21,6 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
           </Routes>
         </Router>
-        {/* {isNotificationOpen && <Notification />} */}
       </AppContainer>
     </>
   );
