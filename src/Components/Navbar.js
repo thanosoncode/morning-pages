@@ -1,7 +1,6 @@
 import { Container, StyledNav, StyledLogoDiv } from "./styles/Navbar.styled";
 import logo from "../images/logo.png";
 import personIn from "../images/personin.png";
-import { useGlobalContext } from "../context";
 import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
