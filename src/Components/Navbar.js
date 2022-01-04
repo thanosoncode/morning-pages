@@ -19,7 +19,6 @@ const Navbar = () => {
           </div>
         </StyledLogoDiv>
         <div onClick={() => navigate("/profile")}>
-          <p>{user?.email}</p>
           <img src={personIn} alt="profile" />
         </div>
       </StyledNav>

@@ -20,7 +20,6 @@ const HistoryButton = ({ handleNewPageClick }) => {
   const [message, setMessage] = useState();
 
   useEffect(() => {
-    console.log(new Date(year, month, selectedDay) < new Date());
     if (new Date(year, month, selectedDay) < new Date()) {
       setImage(past);
       setMessage(messages[1]);
@@ -38,7 +37,7 @@ const HistoryButton = ({ handleNewPageClick }) => {
       setImage(today);
       setMessage(messages[2]);
     }
-  }, [selectedDay, currentDay]);
+  }, [selectedDay, currentDay, month, year]);
 
   return (
     <StyledDayHistory>

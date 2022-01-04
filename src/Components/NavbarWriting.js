@@ -2,7 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { addDoc, updateDoc, doc } from "firebase/firestore";
 import { nanoid } from "nanoid";
-import { db, auth } from "../firebase";
+import { db } from "../firebase";
 import { useGlobalContext } from "../context";
 import logo from "../images/logo.png";
 import { months } from "../data/daysAndMonths";
@@ -68,7 +68,7 @@ const NavbarWriting = () => {
           setWritingTime(
             Math.floor((new Date().getTime() - writingTimeStarted) / 1000 / 60)
           );
-          console.log("time", time);
+
           await addDoc(pagesCollectionRef, {
             user: user.email,
             id: nanoid(),

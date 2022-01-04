@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import Navbar from "../Components/Navbar";
 import Notification from "../Components/Notification";
 import Auth from "./Auth";
@@ -6,6 +6,7 @@ import { useGlobalContext } from "../context";
 import { signOut } from "firebase/auth";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 import { auth, db } from "../firebase";
+import { deleteUser } from "firebase/auth";
 import { VscChromeClose } from "react-icons/vsc";
 import {
   Container,
@@ -18,8 +19,16 @@ import {
 import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
-  const { user, wordGoal, setWordGoal, pagesList, setPagesList } =
-    useGlobalContext();
+  const {
+    user,
+    wordGoal,
+    setWordGoal,
+    pagesList,
+    setPagesList,
+    setTranslateX,
+    setMessage,
+    setActiveDays,
+  } = useGlobalContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   let navigate = useNavigate();
@@ -42,6 +51,11 @@ const Profile = () => {
     }
     setWordGoal(inputEl.current.value);
     setIsModalOpen(false);
+    setTranslateX("-350px");
+    setMessage("Your word goal changed successfully");
+    setTimeout(() => {
+      setTranslateX(0);
+    }, 2500);
   };
 
   const handleDeleteAllData = async () => {
@@ -54,14 +68,21 @@ const Profile = () => {
         return deleteDoc(doc(db, "pages", item.id));
       });
       setPagesList([]);
+      setActiveDays([]);
       navigate("/dashboard");
+      setTranslateX("-350px");
+      setMessage("All your pages have been deleted.");
+      setTimeout(() => {
+        setTranslateX(0);
+      }, 2500);
     }
   };
 
   const handleDeleteAccount = async () => {
+    const user = auth.currentUser;
     if (
       window.confirm(
-        "Are you sure? This is irreversible and will remove all your pages and log you out."
+        "Are you sure? This is irreversible and will remove all your pages, delete your account, and log you out."
       )
     ) {
       pagesList.forEach((item) => {
@@ -71,6 +92,11 @@ const Profile = () => {
       await signOut(auth);
 
       navigate("/auth");
+      deleteUser(user)
+        .then(() => {})
+        .catch((error) => {
+          console.log(error);
+        });
     }
   };
 
@@ -140,11 +166,12 @@ const Profile = () => {
                 />
                 <button type="submit">Update Words Goal</button>
               </form>
-              <span>
+              <span onClick={() => setIsModalOpen(false)}>
                 <VscChromeClose />
               </span>
             </Modal>
           </ModalContainer>
+          <Notification />
         </Container>
       </>
     );

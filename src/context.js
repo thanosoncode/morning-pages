@@ -2,14 +2,7 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { auth, db } from "./firebase";
 import { signOut } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  getDoc,
-  setDoc,
-  doc,
-} from "firebase/firestore";
+import { collection, getDocs, getDoc, setDoc, doc } from "firebase/firestore";
 
 const AppContext = React.createContext();
 
@@ -42,17 +35,18 @@ export const AppContextProvider = ({ children }) => {
   const [insightWords, setInsightWords] = useState(0);
   const [writingTime, setWritingTime] = useState(0);
   const [writingTimeStarted, setWritingTimeStarted] = useState(null);
+  const [translateX, setTranslateX] = useState(0);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const createUser = async () => {
       const data = await getDoc(doc(db, "users", user.email));
       const userDoc = data.data();
-
-      setWordGoal(userDoc.wordGoal);
+      setWordGoal(userDoc?.wordGoal);
       return (
-        userDoc.length === 0 &&
+        userDoc === undefined &&
         (await setDoc(doc(db, "users", user.email), {
-          wordGoal: 300,
+          wordGoal: 10,
         }))
       );
     };
@@ -76,7 +70,6 @@ export const AppContextProvider = ({ children }) => {
 
           if (targetMonth < 10) {
             targetMonth = "0" + targetMonth.toString();
-            console.log("targetMonth", targetMonth);
           } else {
             targetMonth = targetMonth.toString();
           }
@@ -85,15 +78,14 @@ export const AppContextProvider = ({ children }) => {
             Number.parseInt(doc.time?.substr(6, 4)) === year
           );
         });
-        console.log("userPages", userPages);
-        console.log("month", userPagesMonth);
+
         const activeDaysWithScore = userPagesMonth.map((doc) => {
           return {
             day: doc.time.substr(3, 2),
             score: (doc.content.split(" ").length / wordGoal) * 100,
           };
         });
-        console.log("activeDays", activeDaysWithScore);
+
         setPagesList(userPages);
         setActiveDays(activeDaysWithScore);
         setLoading(false);
@@ -108,7 +100,6 @@ export const AppContextProvider = ({ children }) => {
     let targetMonth = month + 1;
     if (targetMonth < 10) {
       targetMonth = "0" + targetMonth.toString();
-      console.log("targetMonth", targetMonth);
     } else {
       targetMonth = targetMonth.toString();
     }
@@ -161,19 +152,6 @@ export const AppContextProvider = ({ children }) => {
     console.log("log out");
   };
 
-  // useEffect(() => {
-  //   const createDate = () => {
-  //     let monthToString = month + 1;
-  //     if (monthToString < 10) {
-  //       monthToString = "0" + monthToString.toString();
-  //     } else {
-  //       monthToString = monthToString.toString();
-  //     }
-  //     console.log(monthToString, selectedDay, year);
-  //   };
-  //   createDate();
-  // }, [selectedDay, month, year]);
-
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
   });
@@ -224,6 +202,10 @@ export const AppContextProvider = ({ children }) => {
     setWritingTime,
     pagesList,
     setPagesList,
+    translateX,
+    setTranslateX,
+    message,
+    setMessage,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
