@@ -61,6 +61,10 @@ export const Navigation = styled.div`
     button {
       margin: 0 15px;
     }
+
+    select:first-child {
+      margin-right: 15px;
+    }
   }
 `;
 

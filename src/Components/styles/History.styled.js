@@ -9,13 +9,11 @@ export const StyledHistory = styled.section`
   height: 100%;
 
   @media (max-width: 650px) {
-    padding-bottom: 100px;
+    padding-bottom: 50px;
   }
-  /* margin-bottom: 100px; */
 
   h5 {
     font-weight: 600;
     font-size: 1rem;
-    /* margin-bottom: 20px; */
   }
 `;
