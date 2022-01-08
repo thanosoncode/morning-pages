@@ -53,9 +53,6 @@ export const Grid = styled.section`
   @media (max-width: 500px) {
     grid-gap: 10px;
     grid-row-gap: 30px;
-  }
-
-  @media (max-width: 400px) {
     grid-template-columns: repeat(3, 1fr);
   }
 `;

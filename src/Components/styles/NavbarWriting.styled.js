@@ -30,6 +30,11 @@ export const StyledNav = styled.nav`
 
   @media (max-width: 500px) {
     padding: 10px 10px;
+    position: fixed;
+    width: 100%;
+    background: white;
+    z-index: 1;
+
     div span:first-child {
       display: none;
     }
@@ -41,7 +46,7 @@ export const StyledNav = styled.nav`
   }
 
   @media (max-width: 400px) {
-    padding: 10px;
+    padding: 15px;
   }
 `;
 
