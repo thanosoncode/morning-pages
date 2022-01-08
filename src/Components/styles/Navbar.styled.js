@@ -45,14 +45,27 @@ export const StyledLogoDiv = styled.div`
     font-size: 10px;
     color: #8d9da1;
   }
+
+  @media (max-width: 500px) {
+    div {
+      display: none;
+    }
+  }
 `;
 
 export const Links = styled.div`
   display: flex;
   gap: 15px;
+
   img {
     width: 25px;
     height: 25px;
     cursor: pointer;
+  }
+
+  @media (max-width: 500px) {
+    img {
+      margin-left: 15px;
+    }
   }
 `;

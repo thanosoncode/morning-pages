@@ -1,5 +1,9 @@
-import { Container, Flex, Header } from "../Components/styles/Home.styled";
-import { StyledLogoDiv } from "../Components/styles/Navbar.styled";
+import {
+  Container,
+  Flex,
+  Header,
+  StyledLogoDiv,
+} from "../Components/styles/Home.styled";
 import logo from "../images/logo-removebg.png";
 import { useNavigate } from "react-router-dom";
 
@@ -12,7 +16,7 @@ const Home = () => {
           <img src={logo} alt="logo" />
           <div>
             <p>Morning Pages</p>
-            <p>Online</p>
+            <p></p>
           </div>
         </StyledLogoDiv>
       </Flex>

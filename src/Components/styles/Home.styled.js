@@ -11,6 +11,29 @@ export const Container = styled.div`
   overflow: hidden;
 `;
 
+export const StyledLogoDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+  img {
+    width: 40px;
+    height: 40px;
+  }
+
+  p {
+    margin-left: 10px;
+    font-weight: 600;
+  }
+
+  p:last-child {
+    font-weight: normal;
+    font-size: 10px;
+    color: #8d9da1;
+  }
+`;
+
 export const Flex = styled.div`
   display: flex;
   justify-content: space-between;
@@ -18,15 +41,6 @@ export const Flex = styled.div`
   max-width: 900px;
   margin: 0 auto;
   padding: 15px 30px;
-`;
-
-export const Links = styled.ul`
-  display: flex;
-  li {
-    margin-left: 30px;
-    font-size: 0.9rem;
-    font-weight: 600;
-  }
 `;
 
 export const Header = styled.header`
@@ -78,5 +92,21 @@ export const Header = styled.header`
     background: transparent;
     border: 1px solid black;
     color: black;
+  }
+
+  @media (max-width: 500px) {
+    h1 {
+      margin: 20px 0px 100px 0;
+      font-size: 38px;
+    }
+
+    h3 {
+      margin: -40px 0 40px 0;
+      font-size: 20px;
+    }
+
+    button {
+      font-size: 1rem;
+    }
   }
 `;

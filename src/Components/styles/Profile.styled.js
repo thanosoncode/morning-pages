@@ -9,6 +9,10 @@ export const Container = styled.div`
     font-size: 24px;
     margin-bottom: 40px;
   }
+
+  @media (max-width: 500px) {
+    padding: 10px;
+  }
 `;
 
 export const Section = styled.section`
@@ -30,6 +34,10 @@ export const Flex = styled.div`
     color: #8d9da1;
     max-width: 320px;
   }
+
+  @media (max-width: 500px) {
+    max-width: none;
+  }
 `;
 
 export const Button = styled.button`
@@ -43,6 +51,12 @@ export const Button = styled.button`
 
   &:hover {
     background-color: #eee;
+  }
+
+  @media (max-width: 500px) {
+    padding: 5px 14px;
+    font-size: 1rem;
+    margin-left: 20px;
   }
 `;
 

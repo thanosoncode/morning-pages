@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { addDoc, updateDoc, doc } from "firebase/firestore";
 import { nanoid } from "nanoid";
 import { db } from "../firebase";
@@ -17,6 +17,9 @@ import {
 
 const NavbarWriting = () => {
   let navigate = useNavigate();
+  let { pathname } = useLocation();
+
+  console.log(pathname);
   const {
     user,
     pagesCollectionRef,
@@ -122,7 +125,13 @@ const NavbarWriting = () => {
   return (
     <Container>
       <StyledNav>
-        <StyledLogoDiv onClick={() => navigate("/")}>
+        <StyledLogoDiv
+          onClick={
+            pathname.startsWith("/pages")
+              ? () => navigate("/dashboard")
+              : () => navigate("/")
+          }
+        >
           <img src={logo} alt="logo" />
           <p>
             {months[month].name.substr(0, 3)}&nbsp;{selectedDay},&nbsp;{year}
