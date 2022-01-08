@@ -43,6 +43,10 @@ export const StyledNav = styled.nav`
       display: block;
       font-size: 1.4rem;
     }
+
+    div {
+      margin-right: 10px;
+    }
   }
 
   @media (max-width: 400px) {

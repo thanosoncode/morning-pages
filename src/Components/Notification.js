@@ -38,4 +38,8 @@ const StyledNotification = styled.div`
     font-size: 1.3rem;
     cursor: pointer;
   }
+
+  @media (max-width: 500px) {
+    top: 220px;
+  }
 `;

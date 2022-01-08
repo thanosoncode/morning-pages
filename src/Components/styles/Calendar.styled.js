@@ -62,8 +62,8 @@ export const Navigation = styled.div`
       margin: 0 15px;
     }
 
-    select:first-child {
-      margin-right: 15px;
+    select:last-child {
+      margin-left: 15px;
     }
   }
 `;
