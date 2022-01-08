@@ -15,6 +15,10 @@ export const Grid = styled.div`
     gap: 40px;
     padding: 60px 5px;
   }
+
+  @media (max-width: 500px) {
+    margin-top: 90px;
+  }
 `;
 
 export const Line = styled.div`

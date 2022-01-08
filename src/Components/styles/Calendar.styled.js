@@ -56,6 +56,12 @@ export const Navigation = styled.div`
     padding: 0.2rem;
     border-radius: 3px;
   }
+
+  @media (max-width: 500px) {
+    button {
+      margin: 0 15px;
+    }
+  }
 `;
 
 export const Grid = styled.div`
