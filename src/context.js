@@ -2,7 +2,14 @@ import React, { useState, useContext, useEffect, useCallback } from "react";
 import { auth, db } from "./firebase";
 import { signOut } from "firebase/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs, getDoc, setDoc, doc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  setDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
 const AppContext = React.createContext();
 
@@ -14,7 +21,8 @@ export const AppContextProvider = ({ children }) => {
   const [isAuth, setIsAuth] = useState(false);
   const [pagesList, setPagesList] = useState([]);
   const [newPage, setNewPage] = useState(false);
-  const [wordGoal, setWordGoal] = useState(300);
+  const [wordGoal, setWordGoal] = useState(10);
+  const [badges, setBadges] = useState({});
   const [activeDays, setActiveDays] = useState([]);
   const [newPageContent, setNewPageContent] = useState("");
   const [currentDay, setCurrentDay] = useState(
@@ -39,22 +47,42 @@ export const AppContextProvider = ({ children }) => {
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    const createUser = async () => {
+    const checkUserHasAccount = async () => {
       const data = await getDoc(doc(db, "users", user.email));
       const userDoc = data.data();
-      setWordGoal(userDoc?.wordGoal);
-      return (
-        userDoc === undefined &&
-        (await setDoc(doc(db, "users", user.email), {
+      console.log("checked");
+      console.log(userDoc === true);
+      return userDoc === true;
+    };
+
+    const createUser = async () => {
+      try {
+        await setDoc(doc(db, "users", user.email), {
           wordGoal: 10,
-        }))
-      );
+          badges: {
+            eggCracker: false,
+            yoda: false,
+            sneaker: false,
+            cupcake: false,
+            meteor: false,
+            owl: false,
+            bird: false,
+            dream: false,
+            rainbow: false,
+            submarine: false,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     };
     if (user?.email) {
-      createUser();
+      if (checkUserHasAccount()) {
+        createUser();
+      }
     }
-  }, [user, usersCollectionRef]);
-
+  }, [user]);
+  console.log(wordGoal);
   const getAllPages = async () => {
     setLoading(true);
     try {
@@ -146,10 +174,107 @@ export const AppContextProvider = ({ children }) => {
     setSelectedDay(day);
   };
 
+  useEffect(() => {
+    const getBadges = async () => {
+      const data = await getDoc(doc(db, "users", user.email));
+      const userDoc = data.data();
+      setBadges(userDoc?.badges);
+    };
+    if (user?.email) {
+      getBadges();
+    }
+  }, [user, pagesList]);
+
+  useEffect(() => {
+    const updateBadgesStatus = async (badge) => {
+      const user = doc(db, "users", auth.currentUser.email);
+      const newFields = badge;
+      await updateDoc(user, newFields);
+    };
+    if (pagesList.length === 1 && badges?.eggCracker === false) {
+      updateBadgesStatus({ "badges.eggCracker": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+    if (pagesList.length === 2 && badges?.yoda === false) {
+      updateBadgesStatus({ "badges.yoda": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+    if (pagesList.length === 11 && badges?.sneaker === false) {
+      updateBadgesStatus({ "badges.sneaker": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+    if (pagesList.length === 44 && badges?.cupcake === false) {
+      updateBadgesStatus({ "badges.cupcake": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+    if (pagesList.length === 99 && badges?.meteor === false) {
+      updateBadgesStatus({ "badges.meteor": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+    if (
+      pagesList.some((item) => item.wordsWritten >= 500) &&
+      badges?.owl === false
+    ) {
+      updateBadgesStatus({ "badges.owl": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+    if (
+      pagesList.some((item) => item.hours > 0 && item.hours < 7) &&
+      badges?.bird === false
+    ) {
+      updateBadgesStatus({ "badges.bird": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+    if (
+      pagesList.some((item) => item.hours > 12 && item.hours < 14) &&
+      badges?.dream === false
+    ) {
+      updateBadgesStatus({ "badges.dream": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+    if (
+      pagesList.some((item) => item.hours > 15 && item.hours < 19) &&
+      badges?.rainbow === false
+    ) {
+      updateBadgesStatus({ "badges.rainbow": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+    if (
+      pagesList.some((item) => item.hours > 19 && item.hours < 23) &&
+      badges?.submarine === false
+    ) {
+      updateBadgesStatus({ "badges.submarine": true });
+      throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
+    }
+  }, [
+    pagesList,
+    badges?.bird,
+    badges?.cupcake,
+    badges?.dream,
+    badges?.eggCracker,
+    badges?.badges?.meteor,
+    badges?.owl,
+    badges?.rainbow,
+    badges?.sneaker,
+    badges?.yoda,
+    badges?.submarine,
+    badges?.meteor,
+  ]);
+
   const logOut = async () => {
     await signOut(auth);
     setIsAuth(false);
     console.log("log out");
+  };
+
+  const throwNotification = (message, delay) => {
+    setTimeout(() => {
+      setTranslateX("-350px");
+      setMessage(message);
+      setTimeout(() => {
+        setTranslateX(0);
+      }, 2500);
+    }, delay);
   };
 
   onAuthStateChanged(auth, (currentUser) => {
@@ -206,6 +331,8 @@ export const AppContextProvider = ({ children }) => {
     setTranslateX,
     message,
     setMessage,
+    badges,
+    throwNotification,
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -9,11 +9,14 @@ import { useGlobalContext } from "../context";
 const messages = [
   "Write Morning Pages the next day. Try not to break the chain",
   "Looks like you missed Morning Pages on that today",
-  "Either you run the day or the day runs you.",
   "Focus on doing Morning Pages tomorrow",
   "Write Morning Pages the next day. Try not to break the chain",
 ];
 
+const todayMessage = [
+  "It doesn’t matter how slowly you go, just don't stop.",
+  "Either you run the day or the day runs you.",
+];
 const HistoryButton = ({ handleNewPageClick }) => {
   const { selectedDay, currentDay, month, year } = useGlobalContext();
   const [image, setImage] = useState();
@@ -35,7 +38,7 @@ const HistoryButton = ({ handleNewPageClick }) => {
       new Date(year, month, currentDay).getTime()
     ) {
       setImage(today);
-      setMessage(messages[2]);
+      setMessage(todayMessage[Math.floor(Math.random() * todayMessage.length)]);
     }
   }, [selectedDay, currentDay, month, year]);
 

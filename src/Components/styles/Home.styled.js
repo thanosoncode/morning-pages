@@ -2,26 +2,15 @@ import styled from "styled-components";
 import bg from "../../images/morning-pages-bg.jpg";
 
 export const Container = styled.div`
-  height:100vh;
-  width:100vw;
-  background-image: url(${bg})
-  background-size:cover;
-  position:relative;
-  z-index:0;
-  overflow:hidden;
+  height: 100vh;
+  width: 100vw;
+  background-image: url(${bg});
+  background-size: cover;
+  position: relative;
+  z-index: 0;
+  overflow: hidden;
 `;
 
-export const Background = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: -1;
-  img {
-    width: 100%;
-  }
-`;
 export const Flex = styled.div`
   display: flex;
   justify-content: space-between;

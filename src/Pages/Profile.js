@@ -1,6 +1,5 @@
 import { useState, useRef } from "react";
 import Navbar from "../Components/Navbar";
-import Notification from "../Components/Notification";
 import Auth from "./Auth";
 import { useGlobalContext } from "../context";
 import { signOut } from "firebase/auth";
@@ -25,10 +24,10 @@ const Profile = () => {
     setWordGoal,
     pagesList,
     setPagesList,
-    setTranslateX,
-    setMessage,
     setActiveDays,
+    throwNotification,
   } = useGlobalContext();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   let navigate = useNavigate();
@@ -51,11 +50,7 @@ const Profile = () => {
     }
     setWordGoal(inputEl.current.value);
     setIsModalOpen(false);
-    setTranslateX("-350px");
-    setMessage("Your word goal changed successfully");
-    setTimeout(() => {
-      setTranslateX(0);
-    }, 2500);
+    throwNotification("Your word goal changed successfully");
   };
 
   const handleDeleteAllData = async () => {
@@ -70,11 +65,7 @@ const Profile = () => {
       setPagesList([]);
       setActiveDays([]);
       navigate("/dashboard");
-      setTranslateX("-350px");
-      setMessage("All your pages have been deleted.");
-      setTimeout(() => {
-        setTranslateX(0);
-      }, 2500);
+      throwNotification("All your pages have been deleted.");
     }
   };
 
@@ -97,6 +88,7 @@ const Profile = () => {
         .catch((error) => {
           console.log(error);
         });
+      throwNotification("All your data and your account have been deleted.");
     }
   };
 
@@ -142,14 +134,14 @@ const Profile = () => {
             </Flex>
             <Flex>
               <div>
-                <p>Delete All Data</p>
+                <p>Delete Account &amp; All Data</p>
                 <p>
                   Please keep in mind, that everything you created or imported
                   in this app will be irreversibly deleted.
                 </p>
               </div>
               <Button color="#ff5e3c" onClick={handleDeleteAccount}>
-                Delete Account
+                Delete Account &amp; All Data
               </Button>
             </Flex>
           </Section>
@@ -171,7 +163,6 @@ const Profile = () => {
               </span>
             </Modal>
           </ModalContainer>
-          <Notification />
         </Container>
       </>
     );

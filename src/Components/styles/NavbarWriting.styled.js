@@ -26,6 +26,29 @@ export const StyledNav = styled.nav`
     cursor: pointer;
     font-size: 1rem;
   }
+
+  div span:last-child {
+    display: none;
+  }
+
+  @media (max-width: 500px) {
+    padding: 10px 10px;
+    div span:first-child {
+      display: none;
+    }
+
+    div span:last-child {
+      display: block;
+      font-size: 1.2rem;
+    }
+  }
+
+  @media (max-width: 400px) {
+    padding: 10px 5px;
+    h5 {
+      font-size: 0.9rem;
+    }
+  }
 `;
 
 export const StyledLogoDiv = styled.div`
@@ -42,12 +65,22 @@ export const StyledLogoDiv = styled.div`
     margin-left: 10px;
     font-weight: 600;
   }
+
+  @media (max-width: 400px) {
+    p {
+      margin-left: 1px;
+    }
+  }
 `;
 
 export const GreenButton = styled.button`
   margin-left: 20px;
   color: #2ad287;
   opacity: ${(props) => props.opacity};
+
+  @media (max-width: 500px) {
+    margin-left: 10px;
+  }
 `;
 
 export const ProgressBar = styled.div`

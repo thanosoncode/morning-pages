@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { useGlobalContext } from "../context";
 import { useParams } from "react-router-dom";
 import NavbarWriting from "../Components/NavbarWriting";
+import Notification from "../Components/Notification";
 import { Container, TextArea } from "../Components/styles/MorningPage.styled";
 import { placeHolders } from "../data/placeholders";
 
@@ -29,6 +30,7 @@ const MorningPage = () => {
   useEffect(() => {
     textAreaElement.current.focus();
   }, []);
+
   return (
     <>
       <NavbarWriting id={id}></NavbarWriting>
@@ -40,6 +42,7 @@ const MorningPage = () => {
           value={editing ? editingContent : newPageContent}
           onChange={handleMorningPageContent}
         />
+        <Notification />
       </Container>
     </>
   );

@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  setPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 import { auth } from "../firebase";
 import { StyledForm } from "../Components/styles/Auth.styled";
@@ -35,10 +37,16 @@ const Auth = () => {
         loginEmail,
         loginPassword
       );
+      setPersistence(auth, browserSessionPersistence)
+        .then(() => {
+          return signInWithEmailAndPassword(auth, loginEmail, loginPassword);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       if (user) {
         navigate("/dashboard");
       }
-      console.log("signed in", user?.email);
     } catch (error) {
       setErrorLogin(error.message);
     }
@@ -62,7 +70,6 @@ const Auth = () => {
       if (user) {
         navigate("/dashboard");
       }
-      console.log("signed Up", user?.email);
     } catch (error) {
       setErrorSignUp(error.message);
     }

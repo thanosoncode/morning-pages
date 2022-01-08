@@ -23,7 +23,7 @@ const StyledNotification = styled.div`
   right: -330px;
   padding: 10px 20px;
   background-color: white;
-  box-shadow: 0 2px 3px 0 rgb(22, 22, 22);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   border-radius: 6px;
   padding: 30px 20px;
   width: 300px;

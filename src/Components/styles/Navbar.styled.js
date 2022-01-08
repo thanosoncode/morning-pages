@@ -2,6 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.colorVeryLight};
+  position: relative;
 `;
 
 export const StyledNav = styled.nav`
@@ -15,6 +16,11 @@ export const StyledNav = styled.nav`
   div:last-child img {
     width: 25px;
     height: 25px;
+    cursor: pointer;
+  }
+
+  @media (max-width: 500px) {
+    padding: 10px 10px;
   }
 `;
 
@@ -38,5 +44,15 @@ export const StyledLogoDiv = styled.div`
     font-weight: normal;
     font-size: 10px;
     color: #8d9da1;
+  }
+`;
+
+export const Links = styled.div`
+  display: flex;
+  gap: 15px;
+  img {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
   }
 `;

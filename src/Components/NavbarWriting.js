@@ -6,6 +6,7 @@ import { db } from "../firebase";
 import { useGlobalContext } from "../context";
 import logo from "../images/logo.png";
 import { months } from "../data/daysAndMonths";
+import { MdCancelPresentation, MdSave } from "react-icons/md";
 import {
   StyledNav,
   StyledLogoDiv,
@@ -76,6 +77,7 @@ const NavbarWriting = () => {
             content: newPageContent,
             writingTime: writingTime,
             wordsWritten: newPageContent.split(" ").length,
+            hours: new Date().getHours(),
           });
 
           setBarPercentage(0);
@@ -120,23 +122,31 @@ const NavbarWriting = () => {
   return (
     <Container>
       <StyledNav>
-        <StyledLogoDiv onClick={() => navigate("/dashboard")}>
+        <StyledLogoDiv onClick={() => navigate("/")}>
           <img src={logo} alt="logo" />
           <p>
-            {months[month].name}&nbsp;{selectedDay},&nbsp;{year}
+            {months[month].name.substr(0, 3)}&nbsp;{selectedDay},&nbsp;{year}
           </p>
         </StyledLogoDiv>
         <h5>
           {getWrittenWords()}/{wordGoal} words written
         </h5>
         <div>
-          <button onClick={handleCancelClick}>Cancel</button>
+          <button onClick={handleCancelClick}>
+            <span> Cancel</span>
+            <span>
+              <MdCancelPresentation />
+            </span>
+          </button>
           <GreenButton
             disabled={!user}
             opacity={user ? "1" : "0.3"}
             onClick={createNewPage}
           >
-            Save
+            <span>Save</span>
+            <span>
+              <MdSave />
+            </span>
           </GreenButton>
         </div>
         <ProgressBar barPercentage={barPercentage} />

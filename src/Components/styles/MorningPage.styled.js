@@ -3,6 +3,10 @@ import styled from "styled-components";
 export const Container = styled.div`
   width: 580px;
   margin: 70px auto;
+
+  @media (max-width: 500px) {
+    width: 90vw;
+  }
 `;
 export const TextArea = styled.textarea`
   width: 100%;

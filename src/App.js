@@ -4,7 +4,9 @@ import Home from "./Pages/Home";
 import Dashboard from "./Pages/Dashboard";
 import MorningPage from "./Pages/MorningPage";
 import Profile from "./Pages/Profile";
+import Badges from "./Pages/Badges";
 import Auth from "./Pages/Auth";
+import Notification from "./Components/Notification";
 import { AppContainer } from "./Components/styles/App.styled";
 
 const App = () => {
@@ -19,8 +21,10 @@ const App = () => {
             <Route path="/pages/:id" element={<MorningPage />} />
 
             <Route path="/profile" element={<Profile />} />
+            <Route path="/badges" element={<Badges />} />
           </Routes>
         </Router>
+        <Notification />
       </AppContainer>
     </>
   );
