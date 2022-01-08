@@ -95,18 +95,23 @@ export const Header = styled.header`
   }
 
   @media (max-width: 500px) {
+    justify-content: flex-start;
+    padding-top: 150px;
+
     h1 {
-      margin: 20px 0px 100px 0;
-      font-size: 38px;
+      margin: 20px 0px 40px 0;
+      font-size: 44px;
+      padding: 0 20px;
     }
 
     h3 {
-      margin: -40px 0 40px 0;
       font-size: 20px;
+      padding: 0px 25px;
+      margin-bottom: 40px;
     }
 
     button {
-      font-size: 1rem;
+      font-size: 1.4rem;
     }
   }
 `;

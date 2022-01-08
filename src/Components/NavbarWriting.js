@@ -13,6 +13,7 @@ import {
   GreenButton,
   ProgressBar,
   Container,
+  Words,
 } from "./styles/NavbarWriting.styled";
 
 const NavbarWriting = () => {
@@ -137,9 +138,9 @@ const NavbarWriting = () => {
             {months[month].name.substr(0, 3)}&nbsp;{selectedDay},&nbsp;{year}
           </p>
         </StyledLogoDiv>
-        <h5>
-          {getWrittenWords()}/{wordGoal} words written
-        </h5>
+        <Words>
+          {getWrittenWords()}/{wordGoal} <span>words written</span>
+        </Words>
         <div>
           <button onClick={handleCancelClick}>
             <span> Cancel</span>

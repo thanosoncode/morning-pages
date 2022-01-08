@@ -14,9 +14,6 @@ export const StyledNav = styled.nav`
   position: relative;
 
   h5 {
-    font-weight: normal;
-    font-size: 1rem;
-    color: rgb(141, 157, 161);
   }
 
   button {
@@ -39,14 +36,23 @@ export const StyledNav = styled.nav`
 
     div span:last-child {
       display: block;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
   }
 
   @media (max-width: 400px) {
-    padding: 10px 5px;
-    h5 {
-      font-size: 0.9rem;
+    padding: 10px;
+  }
+`;
+
+export const Words = styled.h5`
+  font-weight: normal;
+  font-size: 1rem;
+  color: rgb(141, 157, 161);
+
+  @media (max-width: 400px) {
+    span {
+      display: none;
     }
   }
 `;
