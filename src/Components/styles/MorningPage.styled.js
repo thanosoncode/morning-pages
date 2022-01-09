@@ -6,6 +6,7 @@ export const Container = styled.div`
 
   @media (max-width: 500px) {
     width: 90vw;
+    margin-top: 100px;
   }
 `;
 export const TextArea = styled.textarea`
@@ -20,5 +21,9 @@ export const TextArea = styled.textarea`
 
   &:focus {
     outline: none;
+  }
+
+  @media (max-width: 500px) {
+    font-size: 1rem;
   }
 `;

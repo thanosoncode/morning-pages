@@ -50,8 +50,6 @@ export const AppContextProvider = ({ children }) => {
     const checkUserHasAccount = async () => {
       const data = await getDoc(doc(db, "users", user.email));
       const userDoc = data.data();
-      console.log("checked");
-      console.log(userDoc === true);
       return userDoc === true;
     };
 
@@ -82,7 +80,7 @@ export const AppContextProvider = ({ children }) => {
       }
     }
   }, [user]);
-  console.log(wordGoal);
+
   const getAllPages = async () => {
     setLoading(true);
     try {
