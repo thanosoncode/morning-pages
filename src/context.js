@@ -262,6 +262,9 @@ export const AppContextProvider = ({ children }) => {
   const logOut = async () => {
     await signOut(auth);
     setIsAuth(false);
+    setBadges({});
+    setPagesList([]);
+    window.localStorage.clear();
     console.log("log out");
   };
 

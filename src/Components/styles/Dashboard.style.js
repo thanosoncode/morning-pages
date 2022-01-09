@@ -18,7 +18,7 @@ export const Grid = styled.div`
 
   @media (max-width: 500px) {
     margin-top: 40px;
-    grid-gap: 30px;
+    grid-gap: 20px;
   }
 `;
 
