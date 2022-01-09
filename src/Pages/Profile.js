@@ -26,6 +26,8 @@ const Profile = () => {
     setPagesList,
     setActiveDays,
     throwNotification,
+    setIsAuth,
+    setBadges,
   } = useGlobalContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
