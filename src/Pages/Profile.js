@@ -62,6 +62,9 @@ const Profile = () => {
       pagesList.forEach((item) => {
         return deleteDoc(doc(db, "pages", item.id));
       });
+      setIsAuth(false);
+      setBadges({});
+      window.localStorage.clear();
       setPagesList([]);
       setActiveDays([]);
       navigate("/dashboard");
@@ -81,7 +84,10 @@ const Profile = () => {
       });
       await deleteDoc(doc(db, "users", user.email));
       await signOut(auth);
-
+      setIsAuth(false);
+      setBadges({});
+      setPagesList([]);
+      window.localStorage.clear();
       navigate("/auth");
       deleteUser(user)
         .then(() => {})
