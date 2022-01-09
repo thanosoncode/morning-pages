@@ -9,12 +9,23 @@ export const Container = styled.div`
     margin: 0;
     padding: 0 30px;
   }
+
+  @media (max-width: 500px) {
+    width: 350px;
+    p {
+      padding: 0 20px;
+    }
+  }
 `;
 
 export const Controls = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 30px 0 10px 0;
+
+  @media (max-width: 500px) {
+    margin: 30px 0 20px 0;
+  }
 `;
 
 export const SwitchContainer = styled.section`

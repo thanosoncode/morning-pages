@@ -20,7 +20,6 @@ const NavbarWriting = () => {
   let navigate = useNavigate();
   let { pathname } = useLocation();
 
-  console.log(pathname);
   const {
     user,
     pagesCollectionRef,
