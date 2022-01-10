@@ -50,7 +50,14 @@ export const AppContextProvider = ({ children }) => {
     const checkUserHasAccount = async () => {
       const data = await getDoc(doc(db, "users", user.email));
       const userDoc = data.data();
-      return userDoc === true;
+      if (userDoc) {
+        setWordGoal(userDoc.wordGoal);
+        setBadges(userDoc.badges);
+      }
+
+      if (!userDoc) {
+        createUser();
+      }
     };
 
     const createUser = async () => {
@@ -75,9 +82,7 @@ export const AppContextProvider = ({ children }) => {
       }
     };
     if (user?.email) {
-      if (checkUserHasAccount()) {
-        createUser();
-      }
+      checkUserHasAccount();
     }
   }, [user]);
 
@@ -183,6 +188,24 @@ export const AppContextProvider = ({ children }) => {
     }
   }, [user, pagesList]);
 
+  const logOut = async () => {
+    await signOut(auth);
+    setIsAuth(false);
+    setBadges({});
+    setPagesList([]);
+    window.localStorage.clear();
+  };
+
+  const throwNotification = (message, delay) => {
+    setTimeout(() => {
+      setTranslateX("-350px");
+      setMessage(message);
+      setTimeout(() => {
+        setTranslateX(0);
+      }, 2500);
+    }, delay);
+  };
+
   useEffect(() => {
     const updateBadgesStatus = async (badge) => {
       const user = doc(db, "users", auth.currentUser.email);
@@ -224,21 +247,21 @@ export const AppContextProvider = ({ children }) => {
       throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
     }
     if (
-      pagesList.some((item) => item.hours > 12 && item.hours < 14) &&
+      pagesList.some((item) => item.hours > 18 && item.hours < 20) &&
       badges?.dream === false
     ) {
       updateBadgesStatus({ "badges.dream": true });
       throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
     }
     if (
-      pagesList.some((item) => item.hours > 15 && item.hours < 19) &&
+      pagesList.some((item) => item.hours > 14 && item.hours < 17) &&
       badges?.rainbow === false
     ) {
       updateBadgesStatus({ "badges.rainbow": true });
       throwNotification("Congrats!!!  You earned a new badge! ✰⋆🌟✪🔯✨", 5000);
     }
     if (
-      pagesList.some((item) => item.hours > 19 && item.hours < 23) &&
+      pagesList.some((item) => item.hours > 21 && item.hours < 23) &&
       badges?.submarine === false
     ) {
       updateBadgesStatus({ "badges.submarine": true });
@@ -258,25 +281,6 @@ export const AppContextProvider = ({ children }) => {
     badges?.submarine,
     badges?.meteor,
   ]);
-
-  const logOut = async () => {
-    await signOut(auth);
-    setIsAuth(false);
-    setBadges({});
-    setPagesList([]);
-    window.localStorage.clear();
-    console.log("log out");
-  };
-
-  const throwNotification = (message, delay) => {
-    setTimeout(() => {
-      setTranslateX("-350px");
-      setMessage(message);
-      setTimeout(() => {
-        setTranslateX(0);
-      }, 2500);
-    }, delay);
-  };
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
@@ -333,6 +337,7 @@ export const AppContextProvider = ({ children }) => {
     message,
     setMessage,
     badges,
+    setBadges,
     throwNotification,
   };
 

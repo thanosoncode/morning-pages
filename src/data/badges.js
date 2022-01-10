@@ -22,7 +22,7 @@ export const badgesData = [
     id: "yoda",
     name: "Enlightened Yoda",
     task: "Write 2 pages on Morning Pages",
-    complete: "Do it or do not. There is no try.",
+    complete: "Do or do not. There is no try.",
     img: yoda,
   },
   {

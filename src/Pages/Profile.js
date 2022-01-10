@@ -28,6 +28,8 @@ const Profile = () => {
     throwNotification,
     setIsAuth,
     setBadges,
+    setNewPage,
+    newPage,
   } = useGlobalContext();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -75,28 +77,38 @@ const Profile = () => {
   };
 
   const handleDeleteAccount = async () => {
-    const user = auth.currentUser;
     if (
       window.confirm(
         "Are you sure? This is irreversible and will remove all your pages, delete your account, and log you out."
       )
     ) {
-      pagesList.forEach((item) => {
-        return deleteDoc(doc(db, "pages", item.id));
-      });
-      await deleteDoc(doc(db, "users", user.email));
-      await signOut(auth);
-      setIsAuth(false);
-      setBadges({});
-      setPagesList([]);
-      window.localStorage.clear();
-      navigate("/auth");
       deleteUser(user)
-        .then(() => {})
+        .then(() => {
+          pagesList.forEach((item) => {
+            return deleteDoc(doc(db, "pages", item.id));
+          });
+          deleteDoc(doc(db, "users", user.email));
+          signOut(auth);
+          setIsAuth(false);
+          throwNotification(
+            "All your data and your account have been deleted."
+          );
+          window.localStorage.clear();
+          navigate("/auth");
+        })
         .catch((error) => {
           console.log(error);
+          if (error.code === "auth/requires-recent-login") {
+            if (
+              window.confirm(
+                "A recent login is required for this action. Please login again."
+              )
+            ) {
+              setNewPage(!newPage);
+              navigate("/auth");
+            }
+          }
         });
-      throwNotification("All your data and your account have been deleted.");
     }
   };
 
