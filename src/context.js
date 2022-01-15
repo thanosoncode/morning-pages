@@ -145,7 +145,12 @@ export const AppContextProvider = ({ children }) => {
         setShowHistoryPage(true);
         setHistoryPageContent(userPageDay[0].content);
         setEditingId(userPageDay[0].id);
-        setInsightWords(userPageDay[0].content.split(" ").length);
+        setInsightWords(
+          userPageDay[0].content
+            .trim()
+            .split(" ")
+            .filter((item) => item !== "").length
+        );
       }
       if (userPageDay.length === 0) {
         setShowHistoryPage(false);

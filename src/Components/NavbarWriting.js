@@ -97,7 +97,9 @@ const NavbarWriting = () => {
   };
 
   const handleCancelClick = () => {
-    if (window.confirm("Are you sure? Changes will not be saved.")) {
+    if (newPageContent.trim() === "") {
+      navigate("/dashboard");
+    } else if (window.confirm("Are you sure? Changes will not be saved.")) {
       setNewPageContent("");
       setBarPercentage(0);
       navigate("/dashboard");
