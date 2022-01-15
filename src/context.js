@@ -215,7 +215,7 @@ export const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (!user) {
-      throwNotification("Create an account to unlock all features", 7000);
+      throwNotification("Create an FREE account to unlock all features", 7000);
     }
   }, [user]);
 
