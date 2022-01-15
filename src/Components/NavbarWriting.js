@@ -109,12 +109,18 @@ const NavbarWriting = () => {
       if (editingContent.length === 0) {
         return 0;
       }
-      return editingContent.split(" ").length - 1;
+      return editingContent
+        .trim()
+        .split(" ")
+        .filter((item) => item !== "").length;
     } else {
       if (newPageContent.length === 0) {
         return 0;
       }
-      return newPageContent.split(" ").length - 1;
+      return newPageContent
+        .trim()
+        .split(" ")
+        .filter((item) => item !== "").length;
     }
   }, [newPageContent, editingContent, editing]);
 
