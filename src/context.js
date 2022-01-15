@@ -211,6 +211,14 @@ export const AppContextProvider = ({ children }) => {
     }, delay);
   };
 
+  console.log("hey");
+
+  useEffect(() => {
+    if (!user) {
+      throwNotification("Create an account to unlock all features", 7000);
+    }
+  }, [user]);
+
   useEffect(() => {
     const updateBadgesStatus = async (badge) => {
       const user = doc(db, "users", auth.currentUser.email);

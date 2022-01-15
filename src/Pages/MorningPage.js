@@ -15,8 +15,6 @@ const MorningPage = () => {
     editing,
     editingContent,
     setEditingContent,
-    throwNotification,
-    user,
   } = useGlobalContext();
 
   const random = Math.floor(Math.random() * placeHolders.length);
@@ -32,12 +30,6 @@ const MorningPage = () => {
   useEffect(() => {
     textAreaElement.current.focus();
   }, []);
-
-  useEffect(() => {
-    if (!user) {
-      throwNotification("Create an account to unlock all features", 3000);
-    }
-  }, [user]);
 
   return (
     <>
